@@ -168,4 +168,41 @@ class GildedRoseTest {
         assertEquals(-1, app.items[0].sellIn, "expiry date decrease by one");
     }
 
+
+    //Conjured Item tests
+    @Test @DisplayName("case 1 : Conjured item with quality greater than 0 but is expired")
+    void conjured_case_one(){
+        Item[] items = new Item[] { new Item("conjured", -1, 45) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(41, app.items[0].quality, "expired conjured item decrease in quality 4 times");
+        assertEquals(-2, app.items[0].sellIn,"expiry date decrease by one");
+    }
+
+    @Test @DisplayName("case 2 : Conjured item with quality greater than 0 but has not expired")
+    void conjured_case_two(){
+        Item[] items = new Item[] { new Item("conjured", 5, 45) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(43, app.items[0].quality, "unexpired item decreases quality twice");
+        assertEquals(4, app.items[0].sellIn,"expiry date decrease by one");
+    }
+
+    @Test @DisplayName("case 3 : Conjured item with quality of 0 but has not expired")
+    void conjured_case_three(){
+        Item[] items = new Item[] { new Item("conjured", 5, 0) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality, "quality cant go below 0");
+        assertEquals(4, app.items[0].sellIn, "expiry date decrease by one");
+    }
+
+    @Test @DisplayName("case 4 : Conjured item with quality of 0 but has  expired")
+    void conjured_case_four(){
+        Item[] items = new Item[] { new Item("conjured", 0, 0) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(0, app.items[0].quality, "quality cant full under 0 even if it is expired");
+        assertEquals(-1, app.items[0].sellIn,"expiry date decrease by one");
+    }
 }

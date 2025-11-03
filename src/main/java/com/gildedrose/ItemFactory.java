@@ -19,8 +19,8 @@ public class ItemFactory {
         if (item.name.equals("Aged Brie")) return new AgedBrieStrategy();
         else if (item.name.equals("Sulfuras, Hand of Ragnaros"))return new SulfurasStrategy();
         else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) return new BackstageStrategy();
-        else  return new NormalStrategy();
-
+        else if (item.name.equals("Normal")) return new NormalStrategy();
+        else return new ConjuredStrategy();
         }
     }
 
